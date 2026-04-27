@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Oportunidades da conta">
+        <template lwc:if={records}>
+            <template for:each={records} for:item="rec">
+                <c-item-oportunidade
+                    key={rec.Id}
+                    opportunity={rec}>
+                </c-item-oportunidade>
+            </template>
+        </template>
+
+        <template lwc:else>
+            <p class="slds-p-around_medium">Nenhuma Oportunidade encontrada.</p>
+        </template>
+    </lightning-card>
+</template>
