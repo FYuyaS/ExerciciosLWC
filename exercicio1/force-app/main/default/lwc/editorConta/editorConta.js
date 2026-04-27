@@ -1,16 +1,27 @@
 import { LightningElement, api } from 'lwc';
-import ACCOUNT_OBJECT from '@salesforce/schema/Account';
-import NAME_FIELD from '@salesforce/schema/Account.Name';
-import PHONE_FIELD from '@salesforce/schema/Account.Phone';
-import INDUSTRY_FIELD from '@salesforce/schema/Account.Industry';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class EditorConta extends LightningElement {
     @api recordId;
 
-    handleChange(event){
-        
+    handleSuccess(event){
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Sucesso',
+                message: 'Conta atualizada com sucesso',
+                variant: 'success'
+            })
+        );
     }
-    
 
+    handleError(event) {
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Erro ao salvar',
+                message: event.detail.message,
+                variant: 'error'
+            })
+        );
+    }
 
 }
