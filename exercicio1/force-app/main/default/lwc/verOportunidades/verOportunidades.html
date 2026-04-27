@@ -1,18 +1,16 @@
 <template>
     <lightning-card title="Oportunidades da conta">
         <template lwc:if={records}>
-            <div class="slds-m-around_medium">
-                <lightning-datatable
-                key-field="Id"
-                data={records}
-                columns={columns}
-                hide-checkbox-column>
-            </lightning-datatable>
-            </div>
+            <template for:each={records} for:item="rec">
+                <c-item-oportunidade
+                    key={rec.Id}
+                    opportunity={rec}>
+                </c-item-oportunidade>
+            </template>
         </template>
 
         <template lwc:else>
-            <p class="slds-p-around_medium">No opportunities found.</p>
+            <p class="slds-p-around_medium">Nenhuma Oportunidadeencontrada.</p>
         </template>
     </lightning-card>
 </template>

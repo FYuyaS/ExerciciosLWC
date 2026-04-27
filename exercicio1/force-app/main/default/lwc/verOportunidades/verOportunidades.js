@@ -7,11 +7,6 @@ export default class VerOportunidades extends LightningElement {
     records = [];
     error;
 
-    columns = [
-        { label: 'Name',       fieldName: 'Name' },
-        { label: 'Stage',      fieldName: 'StageName' },
-        { label: 'Amount',     fieldName: 'Amount',   type: 'currency' },
-    ];
 
     @wire(getRelatedListRecords, {
     parentRecordId: '$recordId',
@@ -21,13 +16,12 @@ export default class VerOportunidades extends LightningElement {
     })
     listOpportunities({ error, data }){
         if (data) {
-            this.records = data.records.map(record => {
-                const flatRecord = { Id: record.id };
-                Object.keys(record.fields).forEach(fieldName => {
-                    flatRecord[fieldName] = record.fields[fieldName].value;
-                });
-                return flatRecord;
-            });
+            this.records = data.records.map(record => ({
+                Id: record.id,
+                Name: record.fields.Name.value,
+                Amount: record.fields.Amount.value,
+                StageName: record.fields.StageName.value
+            }));
             this.error = undefined;
         } else if (error) {
             this.error = error;
